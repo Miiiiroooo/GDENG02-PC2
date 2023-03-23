@@ -63,6 +63,11 @@ void UTP_WeaponComponent::Fire()
 	}
 }
 
+AGDENG02_PC2Projectile* UTP_WeaponComponent::GetProjectile()
+{
+	return Cast<AGDENG02_PC2Projectile>(this->ProjectileClass);
+}
+
 void UTP_WeaponComponent::AttachWeapon(AGDENG02_PC2Character* TargetCharacter)
 {
 	Character = TargetCharacter;

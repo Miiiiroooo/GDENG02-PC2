@@ -19,6 +19,7 @@ class AGDENG02_PC2Character : public ACharacter
 {
 	GENERATED_BODY()
 
+protected:
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;

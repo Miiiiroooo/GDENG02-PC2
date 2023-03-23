@@ -49,6 +49,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Weapon")
 	void Fire();
 
+	UFUNCTION()
+	AGDENG02_PC2Projectile* GetProjectile();
+
 protected:
 	/** Ends gameplay for this component. */
 	UFUNCTION()
