@@ -22,6 +22,7 @@ class AGDENG02_PC2Projectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	UPROPERTY() float OriginalSphereRadius;
 
 public:
 	AGDENG02_PC2Projectile();
@@ -30,7 +31,8 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-	UFUNCTION() void SetBulletSize(int radius);
+	UFUNCTION() void SetBulletSize(float radius);
+	UFUNCTION() float GetOriginalSphereRadius();
 
 	/** Returns CollisionComp subobject **/
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }

@@ -13,6 +13,8 @@
 // Sets default values for this component's properties
 UTP_WeaponComponent::UTP_WeaponComponent()
 {
+	this->BulletSizeModifier = 1.0f;
+
 	// Default offset from the character location for projectiles to spawn
 	MuzzleOffset = FVector(100.0f, 0.0f, 10.0f);
 }
@@ -42,6 +44,13 @@ void UTP_WeaponComponent::Fire()
 	
 			// Spawn the projectile at the muzzle
 			AGDENG02_PC2Projectile* projectile = World->SpawnActor<AGDENG02_PC2Projectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+
+			if (projectile != nullptr)
+			{
+				float newBulletSize = projectile->GetOriginalSphereRadius() * this->BulletSizeModifier;
+				projectile->SetBulletSize(newBulletSize);
+
+			}
 		}
 	}
 	
@@ -114,4 +123,10 @@ void UTP_WeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 			Subsystem->RemoveMappingContext(FireMappingContext);
 		}
 	}
+}
+
+void UTP_WeaponComponent::SetBulletSizeModifier(float modifier)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Modifier"));
+	this->BulletSizeModifier = modifier;
 }

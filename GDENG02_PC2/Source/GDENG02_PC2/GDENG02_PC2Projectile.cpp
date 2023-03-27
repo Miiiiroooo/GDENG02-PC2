@@ -6,9 +6,11 @@
 
 AGDENG02_PC2Projectile::AGDENG02_PC2Projectile() 
 {
+	this->OriginalSphereRadius = 5.0f;
+
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
-	CollisionComp->InitSphereRadius(5.0f);
+	CollisionComp->InitSphereRadius(this->OriginalSphereRadius);
 	CollisionComp->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComp->OnComponentHit.AddDynamic(this, &AGDENG02_PC2Projectile::OnHit);		// set up a notification for when this component hits something blocking
 
@@ -42,7 +44,13 @@ void AGDENG02_PC2Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAc
 	}*/
 }
 
-void AGDENG02_PC2Projectile::SetBulletSize(int radius)
+void AGDENG02_PC2Projectile::SetBulletSize(float newRadius)
 {
-	CollisionComp->InitSphereRadius(radius);
+	CollisionComp->InitSphereRadius(newRadius);
+}
+
+float AGDENG02_PC2Projectile::GetOriginalSphereRadius()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Sphere Radius"));
+	return this->OriginalSphereRadius;
 }

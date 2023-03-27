@@ -42,17 +42,24 @@ void APC2_Pawn::OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, 
 	{
 		UDropBehaviorActorComponent* dropComponent = OtherActor->FindComponentByClass<UDropBehaviorActorComponent>();
 
-		if (dropComponent != nullptr)
+		UE_LOG(LogTemp, Warning, TEXT("Collision Condition"));
+
+		if (dropComponent != nullptr && this->WeaponComponent != nullptr)
 		{
 			switch (dropComponent->GetDropType())
 			{
 			case EDropTypes::Small_Bullet:
+				UE_LOG(LogTemp, Warning, TEXT("Smol Bullet"));
+				this->WeaponComponent->SetBulletSizeModifier(0.6f);
 				break;
 			case EDropTypes::Medium_Bullet:
+				this->WeaponComponent->SetBulletSizeModifier(1.0f);
 				break;
 			case EDropTypes::Large_Bullet:
+				this->WeaponComponent->SetBulletSizeModifier(1.5f);
 				break;
 			case EDropTypes::XL_Bullet:
+				this->WeaponComponent->SetBulletSizeModifier(2.0f);
 				break;
 			default:
 				break;
