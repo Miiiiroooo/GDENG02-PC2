@@ -41,3 +41,8 @@ void AGDENG02_PC2Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAc
 		Destroy();
 	}*/
 }
+
+void AGDENG02_PC2Projectile::SetBulletSize(int radius)
+{
+	CollisionComp->InitSphereRadius(radius);
+}

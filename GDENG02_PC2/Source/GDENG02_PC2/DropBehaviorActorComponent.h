@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "DropBehaviorActorComponent.generated.h"
 
+#define DROP_COLLISION_CHANNEL ECC_GameTraceChannel1
 
 UENUM()
 enum class EDropTypes : uint8
@@ -32,6 +33,7 @@ protected:
 
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UFUNCTION() EDropTypes GetDropType();
 
 	
 

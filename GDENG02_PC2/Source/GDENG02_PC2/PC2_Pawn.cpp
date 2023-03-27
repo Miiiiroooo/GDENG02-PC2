@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Components/CapsuleComponent.h"
+#include "DropBehaviorActorComponent.h"
 
 APC2_Pawn::APC2_Pawn()
 {
@@ -20,15 +21,8 @@ void APC2_Pawn::BeginPlay()
 	this->PawnCapsuleComponent = FindComponentByClass<UCapsuleComponent>();
 	if (this->PawnCapsuleComponent != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("capsulke"));
 		this->PawnCapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &APC2_Pawn::OnCapsuleBeginOverlap);
 	}
-	/*UCapsuleComponent* capsule = this->GetCapsuleComponent();
-	if (capsule != nullptr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("capsulke"));
-		capsule->OnComponentBeginOverlap.AddDynamic(this, &APC2_Pawn::OnCapsuleBeginOverlap);
-	}*/
 }
 
 void APC2_Pawn::Tick(float DeltaTime)
@@ -44,5 +38,25 @@ void APC2_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void APC2_Pawn::OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OVERLAP"));
+	if (OtherComp != nullptr && OtherActor != nullptr && OtherComp->GetCollisionObjectType() == DROP_COLLISION_CHANNEL)
+	{
+		UDropBehaviorActorComponent* dropComponent = OtherActor->FindComponentByClass<UDropBehaviorActorComponent>();
+
+		if (dropComponent != nullptr)
+		{
+			switch (dropComponent->GetDropType())
+			{
+			case EDropTypes::Small_Bullet:
+				break;
+			case EDropTypes::Medium_Bullet:
+				break;
+			case EDropTypes::Large_Bullet:
+				break;
+			case EDropTypes::XL_Bullet:
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }

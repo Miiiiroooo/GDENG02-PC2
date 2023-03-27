@@ -6,7 +6,6 @@
 #include "GDENG02_PC2Character.h"
 #include "PC2_Pawn.generated.h"
 
-
 class UTP_WeaponComponent;
 class UCapsuleComponent;
 
@@ -27,10 +26,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
-	UFUNCTION(BlueprintCallable) void OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION() void OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 
 public:
-	UPROPERTY() UTP_WeaponComponent* WeaponComponent;
+	UPROPERTY(BlueprintReadWrite) UTP_WeaponComponent* WeaponComponent;
 	UPROPERTY() UCapsuleComponent* PawnCapsuleComponent;
 };

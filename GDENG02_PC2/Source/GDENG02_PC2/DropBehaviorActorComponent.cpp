@@ -8,6 +8,7 @@ UDropBehaviorActorComponent::UDropBehaviorActorComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 
+	this->DropType = EDropTypes::Unknown;
 }
 
 
@@ -22,6 +23,11 @@ void UDropBehaviorActorComponent::BeginPlay()
 void UDropBehaviorActorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	
+}
 
+EDropTypes UDropBehaviorActorComponent::GetDropType()
+{
+	return this->DropType;
 }
 
