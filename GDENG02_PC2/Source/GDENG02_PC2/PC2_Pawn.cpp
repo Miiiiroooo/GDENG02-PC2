@@ -44,6 +44,16 @@ void APC2_Pawn::OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, 
 
 		UE_LOG(LogTemp, Warning, TEXT("Collision Condition"));
 
+		if (dropComponent == nullptr)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("null drop"));
+		}
+
+		if (this->WeaponComponent == nullptr)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("null weapon"));
+		}
+
 		if (dropComponent != nullptr && this->WeaponComponent != nullptr)
 		{
 			switch (dropComponent->GetDropType())
@@ -53,17 +63,22 @@ void APC2_Pawn::OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, 
 				this->WeaponComponent->SetBulletSizeModifier(0.6f);
 				break;
 			case EDropTypes::Medium_Bullet:
+				UE_LOG(LogTemp, Warning, TEXT("Med Bullet"));
 				this->WeaponComponent->SetBulletSizeModifier(1.0f);
 				break;
 			case EDropTypes::Large_Bullet:
+				UE_LOG(LogTemp, Warning, TEXT("Lorg Bullet"));
 				this->WeaponComponent->SetBulletSizeModifier(1.5f);
 				break;
 			case EDropTypes::XL_Bullet:
+				UE_LOG(LogTemp, Warning, TEXT("XL Bullet"));
 				this->WeaponComponent->SetBulletSizeModifier(2.0f);
 				break;
 			default:
 				break;
 			}
+
+			UE_LOG(LogTemp, Warning, TEXT("Drop: %s"), *UEnum::GetDisplayValueAsText(dropComponent->GetDropType()).ToString());
 		}
 	}
 }
