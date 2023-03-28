@@ -47,9 +47,7 @@ void UTP_WeaponComponent::Fire()
 
 			if (projectile != nullptr)
 			{
-				float newBulletSize = projectile->GetOriginalSphereRadius() * this->BulletSizeModifier;
-				projectile->SetBulletSize(newBulletSize);
-
+				projectile->SetBulletSize(this->BulletSizeModifier);
 			}
 		}
 	}

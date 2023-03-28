@@ -6,7 +6,8 @@
 
 AGDENG02_PC2Projectile::AGDENG02_PC2Projectile() 
 {
-	this->OriginalSphereRadius = 5.0f;
+	this->OriginalSphereRadius = 50.0f;
+	this->StaticMeshComponent = nullptr;
 
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
@@ -30,7 +31,7 @@ AGDENG02_PC2Projectile::AGDENG02_PC2Projectile()
 	ProjectileMovement->bShouldBounce = true;
 
 	// Die after 3 seconds by default
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 20.0f;
 }
 
 void AGDENG02_PC2Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -44,13 +45,16 @@ void AGDENG02_PC2Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherAc
 	}*/
 }
 
-void AGDENG02_PC2Projectile::SetBulletSize(float newRadius)
+void AGDENG02_PC2Projectile::SetBulletSize(float modifier)
 {
-	CollisionComp->InitSphereRadius(newRadius);
-}
+	FTransform collisionTransform = this->CollisionComp->GetRelativeTransform();
+	collisionTransform.SetScale3D(FVector::OneVector * modifier);
+	this->CollisionComp->SetRelativeTransform(collisionTransform);
 
-float AGDENG02_PC2Projectile::GetOriginalSphereRadius()
-{
-	UE_LOG(LogTemp, Warning, TEXT("Sphere Radius"));
-	return this->OriginalSphereRadius;
+	/*float newRadius = this->OriginalSphereRadius * modifier;
+	this->CollisionComp->SetSphereRadius(newRadius);*/
+
+	/*FTransform meshTransform = this->StaticMeshComponent->GetRelativeTransform();
+	meshTransform.SetScale3D(FVector::OneVector * modifier);
+	this->StaticMeshComponent->SetRelativeTransform(meshTransform);*/
 }

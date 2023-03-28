@@ -8,6 +8,7 @@
 
 class USphereComponent;
 class UProjectileMovementComponent;
+class UStaticMeshComponent;
 
 UCLASS(config=Game)
 class AGDENG02_PC2Projectile : public AActor
@@ -25,6 +26,10 @@ class AGDENG02_PC2Projectile : public AActor
 	UPROPERTY() float OriginalSphereRadius;
 
 public:
+	UPROPERTY(BlueprintReadWrite) UStaticMeshComponent* StaticMeshComponent;
+
+
+public:
 	AGDENG02_PC2Projectile();
 
 	/** called when projectile hits something */
@@ -32,7 +37,6 @@ public:
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	UFUNCTION() void SetBulletSize(float radius);
-	UFUNCTION() float GetOriginalSphereRadius();
 
 	/** Returns CollisionComp subobject **/
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }

@@ -23,6 +23,11 @@ void APC2_Pawn::BeginPlay()
 	{
 		this->PawnCapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &APC2_Pawn::OnCapsuleBeginOverlap);
 	}
+
+	if (this->WeaponComponent != nullptr)
+	{
+		this->WeaponComponent->SetBulletSizeModifier(0.6f);
+	}
 }
 
 void APC2_Pawn::Tick(float DeltaTime)
@@ -41,44 +46,25 @@ void APC2_Pawn::OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, 
 	if (OtherComp != nullptr && OtherActor != nullptr && OtherComp->GetCollisionObjectType() == DROP_COLLISION_CHANNEL)
 	{
 		UDropBehaviorActorComponent* dropComponent = OtherActor->FindComponentByClass<UDropBehaviorActorComponent>();
-
-		UE_LOG(LogTemp, Warning, TEXT("Collision Condition"));
-
-		if (dropComponent == nullptr)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("null drop"));
-		}
-
-		if (this->WeaponComponent == nullptr)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("null weapon"));
-		}
-
 		if (dropComponent != nullptr && this->WeaponComponent != nullptr)
 		{
 			switch (dropComponent->GetDropType())
 			{
 			case EDropTypes::Small_Bullet:
-				UE_LOG(LogTemp, Warning, TEXT("Smol Bullet"));
-				this->WeaponComponent->SetBulletSizeModifier(0.6f);
+				this->WeaponComponent->SetBulletSizeModifier(0.2f);
 				break;
 			case EDropTypes::Medium_Bullet:
-				UE_LOG(LogTemp, Warning, TEXT("Med Bullet"));
-				this->WeaponComponent->SetBulletSizeModifier(1.0f);
+				this->WeaponComponent->SetBulletSizeModifier(0.6f);
 				break;
 			case EDropTypes::Large_Bullet:
-				UE_LOG(LogTemp, Warning, TEXT("Lorg Bullet"));
-				this->WeaponComponent->SetBulletSizeModifier(1.5f);
+				this->WeaponComponent->SetBulletSizeModifier(1.4f);
 				break;
 			case EDropTypes::XL_Bullet:
-				UE_LOG(LogTemp, Warning, TEXT("XL Bullet"));
 				this->WeaponComponent->SetBulletSizeModifier(2.0f);
 				break;
 			default:
 				break;
 			}
-
-			UE_LOG(LogTemp, Warning, TEXT("Drop: %s"), *UEnum::GetDisplayValueAsText(dropComponent->GetDropType()).ToString());
 		}
 	}
 }
