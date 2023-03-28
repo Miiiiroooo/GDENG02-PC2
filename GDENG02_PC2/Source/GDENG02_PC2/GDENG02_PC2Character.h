@@ -53,7 +53,7 @@ public:
 	class UInputAction* LookAction;
 
 	/** Bool for AnimBP to switch to another animation set */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Weapon)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Weapon)
 	bool bHasRifle;
 
 	/** Setter to set the bool */
