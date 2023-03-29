@@ -36,8 +36,14 @@ public:
 	UFUNCTION() EDropTypes GetDropType();
 
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) AActor* parentActor;
+	UFUNCTION() void ItemCollected();
 
 private: 
 	UPROPERTY(EditAnywhere) TArray<AActor*> DropList;
 	UPROPERTY(EditAnywhere) EDropTypes DropType;
+
+	
+
+	
 };

@@ -22,6 +22,7 @@ void APC2_Pawn::BeginPlay()
 	if (this->PawnCapsuleComponent != nullptr)
 	{
 		this->PawnCapsuleComponent->OnComponentBeginOverlap.AddDynamic(this, &APC2_Pawn::OnCapsuleBeginOverlap);
+		this->PawnCapsuleComponent->OnComponentHit.AddDynamic(this, &APC2_Pawn::OnHit);
 	}
 
 	if (this->WeaponComponent != nullptr)
@@ -65,6 +66,40 @@ void APC2_Pawn::OnCapsuleBeginOverlap(UPrimitiveComponent* OverlappedComponent, 
 			default:
 				break;
 			}
+
+			dropComponent->ItemCollected();
+		}
+	}
+}
+
+void APC2_Pawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+
+
+	if (OtherComp != nullptr && OtherActor != nullptr && OtherComp->GetCollisionObjectType() == DROP_COLLISION_CHANNEL)
+	{
+		UDropBehaviorActorComponent* dropComponent = OtherActor->FindComponentByClass<UDropBehaviorActorComponent>();
+		if (dropComponent != nullptr && this->WeaponComponent != nullptr)
+		{
+			switch (dropComponent->GetDropType())
+			{
+			case EDropTypes::Small_Bullet:
+				this->WeaponComponent->SetBulletSizeModifier(0.2f);
+				break;
+			case EDropTypes::Medium_Bullet:
+				this->WeaponComponent->SetBulletSizeModifier(0.6f);
+				break;
+			case EDropTypes::Large_Bullet:
+				this->WeaponComponent->SetBulletSizeModifier(1.4f);
+				break;
+			case EDropTypes::XL_Bullet:
+				this->WeaponComponent->SetBulletSizeModifier(2.0f);
+				break;
+			default:
+				break;
+			}
+
+			dropComponent->ItemCollected();
 		}
 	}
 }

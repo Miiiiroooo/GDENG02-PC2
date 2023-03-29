@@ -31,3 +31,9 @@ EDropTypes UDropBehaviorActorComponent::GetDropType()
 	return this->DropType;
 }
 
+void UDropBehaviorActorComponent::ItemCollected()
+{
+	parentActor->Destroy();
+	this->GetOwner()->Destroy();
+}
+
