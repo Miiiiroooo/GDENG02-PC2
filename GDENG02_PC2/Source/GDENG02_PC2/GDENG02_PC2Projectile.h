@@ -44,6 +44,6 @@ public:
 	UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
 
 	UFUNCTION(BlueprintImplementableEvent)
-		void SpawnExplode(FVector location);
+		void SpawnExplosion(FVector location);
 };
 
