@@ -13,6 +13,11 @@ class AGDENG02_PC2GameMode : public AGameModeBase
 
 public:
 	AGDENG02_PC2GameMode();
+
+protected:
+	
+
+
 };
 
 
