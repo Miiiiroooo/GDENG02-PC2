@@ -13,6 +13,8 @@ class GDENG02_PC2_API UTP_WeaponComponent : public USkeletalMeshComponent
 {
 	GENERATED_BODY()
 
+	UPROPERTY() float BulletSizeModifier;
+
 public:
 	/** Projectile class to spawn */
 	UPROPERTY(EditDefaultsOnly, Category=Projectile)
@@ -48,6 +50,11 @@ public:
 	/** Make the weapon Fire a Projectile */
 	UFUNCTION(BlueprintCallable, Category="Weapon")
 	void Fire();
+
+	UFUNCTION()
+	AGDENG02_PC2Projectile* GetProjectile();
+
+	UFUNCTION() void SetBulletSizeModifier(float modifier);
 
 protected:
 	/** Ends gameplay for this component. */

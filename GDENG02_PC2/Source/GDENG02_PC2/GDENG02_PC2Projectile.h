@@ -8,6 +8,7 @@
 
 class USphereComponent;
 class UProjectileMovementComponent;
+class UStaticMeshComponent;
 
 UCLASS(config=Game)
 class AGDENG02_PC2Projectile : public AActor
@@ -22,6 +23,12 @@ class AGDENG02_PC2Projectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	UPROPERTY() float OriginalSphereRadius;
+
+public:
+	UPROPERTY(BlueprintReadWrite) UStaticMeshComponent* StaticMeshComponent;
+
+
 public:
 	AGDENG02_PC2Projectile();
 
@@ -29,9 +36,14 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
+	UFUNCTION() void SetBulletSize(float radius);
+
 	/** Returns CollisionComp subobject **/
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void SpawnExplosion(FVector location);
 };
 

@@ -19,6 +19,7 @@ class AGDENG02_PC2Character : public ACharacter
 {
 	GENERATED_BODY()
 
+protected:
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
 	USkeletalMeshComponent* Mesh1P;
@@ -53,7 +54,7 @@ public:
 	class UInputAction* LookAction;
 
 	/** Bool for AnimBP to switch to another animation set */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Weapon)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Weapon)
 	bool bHasRifle;
 
 	/** Setter to set the bool */
